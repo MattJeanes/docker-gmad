@@ -1,4 +1,4 @@
-FROM ubuntu:latest as builder
+FROM ubuntu:latest@sha256:278628f08d4979fb9af9ead44277dbc9c92c2465922310916ad0c46ec9999295 as builder
 
 RUN apt-get update && apt-get install -y git wget build-essential
 
@@ -22,7 +22,7 @@ WORKDIR /build/gmad
 RUN premake5 --outdir="bin/" --bootil_lib="../bootil/projects/release_x64_linux" --bootil_inc="../bootil/include/" gmake2 && \
     make config=release
 
-FROM ubuntu:latest as final
+FROM ubuntu:latest@sha256:278628f08d4979fb9af9ead44277dbc9c92c2465922310916ad0c46ec9999295 as final
 
 COPY --from=builder /build/gmad/bin/gmad_linux /gmad/gmad
 
